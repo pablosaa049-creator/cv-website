@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Builder</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin:0; padding:0;}
+    .container { max-width: 600px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+    h1 { text-align:center; }
+    label { display:block; margin-top:10px; font-weight:bold;}
+    input, textarea, select { width:100%; padding:8px; margin-top:4px; border:1px solid #ccc; border-radius:4px;}
+    button { margin-top:20px; width:100%; padding:10px; background:#4CAF50; color:white; border:none; border-radius:4px; font-size:16px; cursor:pointer;}
+    button:hover { background:#45a049;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CV Builder</h1>
+    <form id="cvForm">
+      <label>Full Name</label>
+      <input type="text" name="name" required>
+      
+      <label>Email</label>
+      <input type="email" name="email" required>
+      
+      <label>Phone Number</label>
+      <input type="text" name="phone" required>
+      
+      <label>Work Experience</label>
+      <textarea name="experience" rows="4" required></textarea>
+      
+      <label>Education</label>
+      <textarea name="education" rows="3" required></textarea>
+      
+      <label>Skills</label>
