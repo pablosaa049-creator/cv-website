@@ -1,19 +1,14 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(bodyParser.json());
+app.use(express.static('frontend'));
 
-app.post('/submit-cv', (req, res) => {
-  const cvData = req.body;
-  console.log('CV Submitted:', cvData);
-  res.json({ status: 'success', message: 'CV received!' });
+app.post('/api/submit-cv', (req, res) => {
+    // Handle CV submission
+    res.send('CV submitted!');
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
 });
