@@ -52,10 +52,31 @@
 
   <script>
     const form = document.getElementById('cvForm');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('CV submitted! Backend processing not connected yet.');
+    form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const data = {
+    name: form.name.value,
+    email: form.email.value,
+    phone: form.phone.value,
+    experience: form.experience.value,
+    education: form.education.value,
+    skills: form.skills.value,
+    job: form.job.value,
+    template: form.template.value
+  };
+
+  try {
+    const res = await fetch('/api/submit-cv', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
     });
-  </script>
-</body>
-</html>
+
+    const result = await res.json();
+    alert(result.message);
+  } catch (err) {
+    alert('Error submitting CV');
+    console.error(err);
+  }
+});
