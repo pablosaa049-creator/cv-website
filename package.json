@@ -1,1 +1,19 @@
-{\n  "name": "cv-website",\n  "version": "1.0.0",\n  "private": true,\n  "type": "commonjs",\n  "scripts": {\n    "dev": "nodemon frontend/backend/server.js",\n    "start": "node frontend/backend/server.js"\n  },\n  "dependencies": {\n    "@emailjs/nodejs": "^4.3.0",\n    "body-parser": "^1.20.2",\n    "cors": "^2.8.5",\n    "express": "^4.18.2"\n  },\n  "devDependencies": {\n    "nodemon": "^2.0.22"\n  }\n}
+{
+  "name": "cv-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon frontend/backend/server.js",
+    "start": "node frontend/backend/server.js"
+  },
+  "dependencies": {
+    "@emailjs/nodejs": "^4.3.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
