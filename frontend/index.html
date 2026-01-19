@@ -1,8 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CV Builder</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f5f5f5; margin:0; padding:0;}
@@ -12,71 +13,92 @@
     input, textarea, select { width:100%; padding:8px; margin-top:4px; border:1px solid #ccc; border-radius:4px;}
     button { margin-top:20px; width:100%; padding:10px; background:#4CAF50; color:white; border:none; border-radius:4px; font-size:16px; cursor:pointer;}
     button:hover { background:#45a049;}
+    .status { margin-top:12px; padding:10px; border-radius:4px; display:none; }
+    .status.success { background:#e6ffed; color:#065f46; display:block; }
+    .status.error { background:#ffe6e6; color:#7f1d1d; display:block; }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>CV Builder</h1>
     <form id="cvForm">
-      <label>Full Name</label>
-      <input type="text" name="name" required>
-      
-      <label>Email</label>
-      <input type="email" name="email" required>
-      
-      <label>Phone Number</label>
-      <input type="text" name="phone" required>
-      
-      <label>Work Experience</label>
-      <textarea name="experience" rows="4" required></textarea>
-      
-      <label>Education</label>
-      <textarea name="education" rows="3" required></textarea>
-      
-      <label>Skills</label>
-      <textarea name="skills" rows="3" required></textarea>
-      
-      <label>Job Applying For</label>
-      <input type="text" name="job" required>
-      
-      <label>Template</label>
-      <select name="template">
+      <label for="name">Full Name</label>
+      <input id="name" type="text" name="name" required />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" required />
+
+      <label for="phone">Phone Number</label>
+      <input id="phone" type="text" name="phone" required />
+
+      <label for="experience">Work Experience</label>
+      <textarea id="experience" name="experience" rows="4" required></textarea>
+
+      <label for="education">Education</label>
+      <textarea id="education" name="education" rows="3" required></textarea>
+
+      <label for="skills">Skills</label>
+      <textarea id="skills" name="skills" rows="3" required></textarea>
+
+      <label for="job">Job Applying For</label>
+      <input id="job" type="text" name="job" required />
+
+      <label for="template">Template</label>
+      <select id="template" name="template">
         <option value="classic">Classic</option>
         <option value="modern">Modern</option>
         <option value="simple">Simple</option>
       </select>
-      
+
       <button type="submit">Submit CV</button>
     </form>
+
+    <div id="status" role="status" aria-live="polite" class="status"></div>
   </div>
 
   <script>
     const form = document.getElementById('cvForm');
+    const statusDiv = document.getElementById('status');
+
+    function showStatus(message, isError) {
+      statusDiv.textContent = message;
+      statusDiv.className = 'status ' + (isError ? 'error' : 'success');
+    }
+
     form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+      e.preventDefault();
 
-  const data = {
-    name: form.name.value,
-    email: form.email.value,
-    phone: form.phone.value,
-    experience: form.experience.value,
-    education: form.education.value,
-    skills: form.skills.value,
-    job: form.job.value,
-    template: form.template.value
-  };
+      const data = {
+        name: form.name.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        experience: form.experience.value,
+        education: form.education.value,
+        skills: form.skills.value,
+        job: form.job.value,
+        template: form.template.value
+      };
 
-  try {
-    const res = await fetch('/api/submit-cv', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      try {
+        const res = await fetch('/api/submit-cv', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        if (res.ok) {
+          showStatus(result.message || 'CV submitted successfully!', false);
+          form.reset();
+        } else {
+          showStatus(result.message || 'Failed to submit CV', true);
+        }
+      } catch (err) {
+        console.error(err);
+        showStatus('Error submitting CV — network or server error.', true);
+      }
     });
-
-    const result = await res.json();
-    alert(result.message);
-  } catch (err) {
-    alert('Error submitting CV');
-    console.error(err);
-  }
-});
+  </script>
+</body>
+</html>
+```
